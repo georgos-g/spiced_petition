@@ -1,0 +1,59 @@
+body {
+    background: dimgray;
+    color: white;
+    padding-bottom: 40px;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    text-align: center ;
+}
+
+footer {
+    background: rgb(70, 70, 70);
+    position: fixed;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#wrapper {
+          
+    text-align: center;
+}
+
+#signature-canvas {
+    display: flex;
+    flex-direction: column;
+        
+    
+
+ position: absolute;
+  left: 50%;
+  
+  transform: translate(-50%, 0%);
+
+
+      
+    background: #5c5c5c;
+    border: solid grey 1px;
+    
+
+
+}
+
+
+.error {
+    background: black;
+    border: solid white 1px;;
+    width: 300px;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    transform: translate(-50%, -50%);
+}

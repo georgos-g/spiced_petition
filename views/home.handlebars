@@ -1,0 +1,44 @@
+<h1>MAKE THE EUROVISION SONG CONTEST A NATIONAL HOLIDAY</h1>
+
+<p>
+The Eurovision Song Contest is a celebration of European culture and history.
+<br> 
+<br>
+Last year, over 180 million people worldwide viewed the final of the Eurovision Song Contest. <br>
+The host countries are able to showcase their culture, art, history and modern image. <br>
+By making it a national holiday, we will increase participation and interest in the contest, <br>
+thereby increasing education about modern Europe and celebration of European culture among the population.  
+</p>
+
+
+<h3>PLEASE SIGN OUR PETITION</h3>
+<img src="https://douzepoints.ch/wp-content/uploads/2019/12/Stage-2-1024x502.jpg" width="800" height='400'>
+
+<div id= 'wrapper'>
+
+<form id='signature-form' method='POST' action='/sign-petition'>
+
+    {{#if error}}
+        <div class='error'>{{error}}</div>
+    {{/if}}
+
+
+
+   
+    <input id='firstname' type='text' name='firstname' placeholder='First Name*' value='{{firstname}}'>
+
+
+   
+    <input id='lastname' type='text' name='lastname' placeholder='Last Name*' value='{{lastname}}'>
+
+
+    <canvas id='signature-canvas' width="404" height="150"></canvas>
+    <input type='hidden' id='signature-code' name='signatureCode'>
+
+
+    <button type='submit'>SIGN</button>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+
+</form>
+</div>
