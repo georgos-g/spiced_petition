@@ -11,6 +11,20 @@ exports.saveSignature = (firstname, lastname, signatureCode)=>{
 
 };
 
+exports.saveUser = (firstname, lastname, email, pasword_hash) => {
+    return db.query(
+        'INSERT INTO users (firstname, lastname, email, pasword_hash) VALUES($1, $2, $3, $4) RETURNING *;',
+        [firstname, lastname, email, pasword_hash]
+    );
+
+};
+
+
+exports.getSignatureByID = (firstname, lastname, signatureID)=>{
+    return db.query('SELECT firstname, lastname signatureID FROM signatures WHERE id = $1;', 
+    [firstname, lastname, signatureID]);    
+};
+
 exports.getSigners = () => {
     return db.query('SELECT firstname, lastname FROM signatures');
 };

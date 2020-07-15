@@ -31,6 +31,8 @@ app.use(function(req, res, next){
     next();
 });
 
+app.get
+
 app.get('/', (request, response)=>{
 response.render('home');
 });
@@ -68,9 +70,9 @@ app.post('/sign-petition', (request, response)=>{
 
     app.get('/thank-you', (request, response) => {
         const signatureID = request.session.signatureID;
+        console.log ('request for session on thank you page', request.session);  
         
-        db.getSignatureByID(signatureID)
-        .then(result => {
+        db.getSignatureByID(signatureID).then(result => {
             const firstname = result.rows[0].firstname;
             const lastname = result.rows[0].lastname;
             const signatureCode = result.rows[0].signature_code;
