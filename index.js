@@ -38,14 +38,10 @@ app.use(function(req, res, next){
 // LOGIN PAGE 
 app.get('/login', (request, response)=>{
     if (request.session.userID){
-        response.redirect('/', 302)
+        response.redirect('/', 302) //if userID is loged in  -> redirect to home
     } else {
         response.render('login'); 
     }
-
-
- //if userID is loged in  -> redirect to ???
-
 });
 
 app.post('/login', (request, response) => {
@@ -83,11 +79,13 @@ app.post('/login', (request, response) => {
 // REGISTER FORM PAGE 
 
 app.get('/register', (request, response) => {
-    
+    if (request.session.userID){
+        response.redirect('/', 302) //if userID is loged in  -> redirect to home
+    } else {
+        response.render('register'); 
+    }
 
-    //if userID is in request session => redirect to thank you 
-
-    response.render('register');
+        
 });
 
 // handle register form
@@ -104,17 +102,17 @@ app.post('/register', (request, response)=>{
             password,
 
         });
-    }; 
+    } 
 
     
 
-    //hash password and save user in db
-    hashing.generateHash(password)
-    .then((password_hash)=>{
+    //hash password, save user in db
+    hashing.generateHash(password).
+        then((password_hash)=>{
         db.saveUser(firstname, lastname, email, password_hash)
             .then((result) =>{
                 request.session.userID = result.rows[0].id;
-                response.redirect('/', 302);
+                response.redirect('/profile', 302);
             });
     });
   
@@ -124,12 +122,17 @@ app.post('/register', (request, response)=>{
 
 // PROFILE PAGE 
 app.get('/profile', (request, response)=>{
+    if (request.session.userID){
+        response.redirect('/login', 302) 
+    } else {
     response.render('profile'); 
+    }
 
 });
 
 app.post('/profile', (request, response) => {
 
+  
      //check if fields are filled 
 
     const {age, city, homepage} = request.body;
@@ -141,10 +144,21 @@ app.post('/profile', (request, response) => {
             homepage
 
         });
-    }; 
-
+    } 
+    //save user to DB
+    const 
 
 });  
+
+
+//------------------------------------------------
+app.get('/profile-edit', (request, response)=>{
+    response.render('profile-edit'); 
+
+});
+
+
+//------------------------------------------------
 
 
 // SIGN FORM (with canvas)
@@ -214,4 +228,4 @@ app.post('/sign-petition', (request, response) => {
 
 
 });
-app.listen(8080);
+app.listen(process.env.PORT || 8080);

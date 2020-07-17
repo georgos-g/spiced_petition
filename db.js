@@ -1,8 +1,8 @@
 const spicedPG = require('spiced-pg');
 const { query } = require('express');
+dbUrl = process.env.DATABASE_URL || 'postgres:georgos:georgos@localhost:5432/petition'
+//const db = spicedPG("postgres:georgos:georgos@localhost:5432/petition");
 
-const db = spicedPG("postgres:georgos:georgos@localhost:5432/petition");
-//Sa
 exports.saveSignature = (userID, signatureCode)=>{
     return db.query(
         'INSERT INTO signatures (user_id, signature_code) VALUES($1, $2) RETURNING id;',
