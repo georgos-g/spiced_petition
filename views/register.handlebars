@@ -1,0 +1,33 @@
+<h3>PLEASE REGISTER TO OUR PETITION</h3>
+<img src="https://douzepoints.ch/wp-content/uploads/2019/12/Stage-2-1024x502.jpg" width="450" height='250'>
+
+<div id= 'wrapper'>
+
+<form  method='POST' action='/register'>
+
+    {{#if error}}
+        <div class='error'>{{error}}</div>
+    {{/if}}
+
+
+
+   {{!-- <label for="firstname">firstname</label> --}}
+   <input id='firstname' type='text' name='firstname' placeholder='First Name*' value='{{firstname}}'>
+  
+
+   
+    <input id='lastname' type='text' name='lastname' placeholder='Last Name*' value='{{lastname}}'><br>
+
+     <input id='email' type='text' name='email' placeholder='Email*' value='{{email}}'>
+
+      <input id='password' type='text' name='password' placeholder='Password*' value='{{password}}'><br>
+
+
+   
+
+    <button type='submit'>REGISTER</button>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+
+</form>
+</div>

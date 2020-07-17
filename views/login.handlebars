@@ -1,0 +1,29 @@
+<h3>LOG IN</h3>
+<img src="https://douzepoints.ch/wp-content/uploads/2019/12/Stage-2-1024x502.jpg" width="400" height='200'>
+
+<div id= 'wrapper'>
+
+<form  method='POST' action='/login'>
+
+    {{#if error}}
+        <div class='error'>{{error}}</div>
+    {{/if}}
+
+
+
+   
+     <input id='email' type='text' name='email' placeholder='Email*' value='{{email}}'>
+
+      <input id='password' type='text' name='password' placeholder='Password*' value='{{password}}'>
+
+
+   
+
+    <button type='submit'>LogIn</button>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+
+<p>Are you registered? Go and <a href="/register">signup to the petition.</a>.</p>
+
+</form>
+</div>

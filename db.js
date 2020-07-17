@@ -1,14 +1,13 @@
 const spicedPG = require('spiced-pg');
+const { query } = require('express');
 
 const db = spicedPG("postgres:georgos:georgos@localhost:5432/petition");
-
-exports.saveSignature = (firstname, lastname, signatureCode)=>{
-
+//Sa
+exports.saveSignature = (userID, signatureCode)=>{
     return db.query(
-        'INSERT INTO signatures (firstname, lastname, signature_code) VALUES($1, $2, $3) RETURNING id;',
-        [firstname, lastname, signatureCode]
+        'INSERT INTO signatures (user_id, signature_code) VALUES($1, $2) RETURNING id;',
+        [userID, signatureCode]
         );
-
 };
 
 exports.saveUser = (firstname, lastname, email, pasword_hash) => {
@@ -19,12 +18,29 @@ exports.saveUser = (firstname, lastname, email, pasword_hash) => {
 
 };
 
+exports.saveProfile =(userID, age, city, homepage) => {
+    return db.query(
+        'INSERT INTO profiles (user_id, age, city, homepage) VALUES($1, $2, $3, $4) RETURNING *;',
+        [userID, age, city, homepage]   
 
-exports.getSignatureByID = (firstname, lastname, signatureID)=>{
-    return db.query('SELECT firstname, lastname signatureID FROM signatures WHERE id = $1;', 
-    [firstname, lastname, signatureID]);    
+    );
+}; 
+
+exports.getUserByEmail = (email) => {
+    return db.query
+    ('SELECT * FROM users WHERE email = $1;', [email]);
 };
 
+exports.getSignatureByID = (signatureID) => {
+    return db.query
+    ('SELECT * FROM signatures WHERE id = $1;', [signatureID]);    
+};
+
+exports.getSignatureByUserID = (userID) => {
+    return db.query
+    ('SELECT * FROM signatures WHERE id = $1;', [userID])
+};
 exports.getSigners = () => {
-    return db.query('SELECT firstname, lastname FROM signatures');
+    return db.query
+    ('SELECT firstname, lastname FROM signatures JOIN users ON (signatures.id = users.id)' );
 };
