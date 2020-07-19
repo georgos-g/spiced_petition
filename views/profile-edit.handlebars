@@ -1,1 +1,35 @@
 <h1>Edit your data</h1>
+
+
+<div id= 'wrapper'></div>
+<form action="/profile-edit" method="POST">
+
+  {{#if error}}
+        <div class='error'>{{error}}</div>
+    {{/if}}
+
+<input id="firstname" name="firstname" type="text" placeholder='Firstname*' value="{{firstname}}">
+</form>
+
+<input id="lastname" name="lastname" type="text" placeholder='Lastname*' value="{{lastname}}">
+
+<input id="email" name="email" type="text" placeholder='Email*' value="{{email}}">
+</form>
+
+<input id="password" name="password" type="text" placeholder='Password'>
+    <span>Leave this empty for no change.</span>
+
+<input id="age" name="age" type="text" placeholder='Age*' value="{{age}}">
+
+<input id="city" name="city" type="text" placeholder='City' value="{{city}}">
+
+<input id="homepage" name="homepage" type="url" placeholder='Homepage' value="{{homepage}}">
+
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
+<button type="submit">Update your data</button>
+
+
+
+</form>
+
+</div>
