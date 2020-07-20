@@ -1,7 +1,7 @@
 const spicedPG = require('spiced-pg');
 const { query } = require('express');
 dbUrl = process.env.DATABASE_URL || 'postgres:georgos:georgos@localhost:5432/petition'
-//const db = spicedPG("postgres:georgos:georgos@localhost:5432/petition");
+const db = spicedPG(dbUrl);
 
 
 // exports.saveSignature = (userID, signatureCode)=>{
@@ -21,44 +21,38 @@ exports.saveSignature = (userID, signatureCode) => {
 };
 
 
-// exports.saveUser = (firstname, lastname, email, pasword_hash) => {
-//     return db.query(
-//         "INSERT INTO users (firstname, lastname, email, pasword_hash) VALUES($1, $2, $3, $4) RETURNING *;",
-//         [firstname, lastname, email, pasword_hash]
-//     );
-
-// };
-
 exports.saveUser = (firstname, lastname, email, password_hash) => {
     return db.query(
-        "INSERT INTO users (firstname, lastname, email, password_hash) VALUES($1, $2, $3, $4) RETURNING *;",
+        'INSERT INTO users (firstname, lastname, email, password_hash) VALUES($1, $2, $3, $4) RETURNING *;',
         [firstname, lastname, email, password_hash]
     );
+
 };
+
+
 
 //----------------------------------------------------------------------------------
 exports.updateUser = (userID, firstname, lastname, email) => {
     return db.query(
         `UPDATE users SET firstname=$1, lastname=$2, email=$3 WHERE id=$4;`,
-        // 'UPDATE users SET (firstname, lastname, email, ) WHERE id = user_id VALUES($1, $2, $3, $4) RETURNING *; ', 
-        [firstname, lastname, email,userID]
+        //'UPDATE users SET (firstname=$1, lastname=$2, email=$3) WHERE id=$4;', 
+        [firstname, lastname, email, userID]
 
     );
 
 };
-exports.updatePasswordHash = (userID, paswordHash) => {
+exports.updatePasswordHash = (userID, passwordHash) => {
     return db.query(
-        //'UPDATE users SET (pasword_hash) WHERE id = user_id VALUES($1, $2) RETURNING *;',
-        `UPDATE users SET pasword_hash=$1, WHERE id=$2;`, 
-        [paswordHash, userID]
+        `UPDATE users SET password_hash=$1, WHERE id=$2, RETURNING *;`, 
+        [passwordHash, userID]
 
     );
 };
-
-exports.updateOrInsertUserProfile = (userID, age, city, homepage) => {
+//UserID/id
+exports.updateOrInsertUserProfile = (userId, age, city, homepage) => {
     return db.query(//hier normale ""?
         `INSERT INTO profiles (user_id, age, city, homepage) VALUES($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$2, city=$3, homepage=$4;`,
-        [userID, age, city, homepage]
+        [userId, age, city, homepage]
 
     );
 };
@@ -71,7 +65,7 @@ exports.deleteSignatureForUserId = userID => {
 };
 
 
-//----------------------------------------------------------------------------------
+
 exports.saveProfile =(userID, age, city, homepage) => {
     return db.query(
         'INSERT INTO profiles (user_id, age, city, homepage) VALUES($1, $2, $3, $4) RETURNING *;',
@@ -95,12 +89,12 @@ exports.saveProfile =(userID, age, city, homepage) => {
     };
     
     exports.getSignatureByUserID = (userID) => {
-        return db.query
-        ('SELECT * FROM signatures WHERE id = $1;', 
+        return db.query(
+            'SELECT * FROM signatures WHERE user_id = $1;', 
         [userID]
         );
     };
-    exports.getAllUserInfoByUserID = () => {
+    exports.getAllUserInfoByUserID = (userID) => {
         return db.query(
             'SELECT * FROM users LEFT JOIN profiles ON (users.id = profiles.user_id) WHERE (users.id = $1);', 
             [userID]
@@ -109,6 +103,8 @@ exports.saveProfile =(userID, age, city, homepage) => {
 
     exports.getSigners = () => {
     return db.query(
-        'SELECT firstname, lastname, age, city, homepage FROM signatures JOIN users ON (signatures.user.id = users.id) JOIN profiles ON (users.id = profiles.user_id);', 
+        `SELECT firstname, lastname, age, city, homepage FROM signatures
+                     JOIN users ON signatures.user_id = users.id
+                     JOIN profiles ON users.id = profiles.user_id;`, 
         );
     };

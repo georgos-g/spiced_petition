@@ -65,7 +65,7 @@ app.post('/login', (request, response) => {
         hashing.compare(password, userPasswordHashFromDB).then((isCorrect) => {
             if (isCorrect) {
                 request.session.userID = result.rows[0].id;
-                responce.redirect('/thank-you', 302)
+                response.redirect('/thank-you', 302)
             
             } else {
                 response.status(401).send('Your email or passwort are incorrect.');
@@ -151,7 +151,8 @@ app.post('/profile', (request, response) => {
     } 
     //save user to DB
     const userID = request.session.userID;
-    db.saveProfile(userID, age, city, homepage).then(result => {
+    db.saveProfile(userID, age, city, homepage)
+        .then((result) => {
          //redirect to home / canvas 
          response.redirect ('/', 302)
 
@@ -164,15 +165,16 @@ app.post('/profile', (request, response) => {
 });  
 
 
-// PROFILE EDIT  ---
+// PROFILE EDIT  ------
 app.get('/profile-edit', (request, response) => {
     if (!request.session.userID){//If not logged in redirect to login
         return response.redirect('/login', 302);
     }  
     
-    db.getAllUserInfoByUserID(request, session.userID).then((result) => {
+    db.getAllUserInfoByUserID(request.session.userID).then((result) => {
         const userInfo = result.rows[0];
         response.render('profile-edit', userInfo);
+
 
     })
     .catch((error) => {
@@ -246,11 +248,11 @@ app.get('/', (request, response) => {
     }
 
     //check if user is signed 
-    db.getSignatureByUserID(request.session.userID).then((result) =>{
+    db.getSignatureByUserID(request.session.userID).then((result) => {
         if (result.rows.length > 0){
             response.redirect('/thank-you', 302);
 
-        }else {
+        } else {
             response.render('home')
         }
 
@@ -293,7 +295,7 @@ app.post('/sign-petition', (request, response) => {
         if (!request.session.userID) {
             response.redirect('/login', 302)
 
-        }else {
+        } else {
             //delete signature and redirect to canvas page
             db.deleteSignatureForUserId(request.session.userID)
             .then(result => {
@@ -310,24 +312,28 @@ app.get('/thank-you', (request, response) => {
         
 
         const userID = request.session.userID;
-        const signatureID = request.session.signatureID;
+        //const signatureID = request.session.signatureID;
         console.log ('request for session on thank you page', request.session);  
         
         //db.getSignatureByID(signatureID)
-        db.getSignatureByID(userID)
+        db.getSignatureByUserID(userID)
             .then(result => {
-            const firstname = result.rows[0].firstname;
-            const lastname = result.rows[0].lastname;
+            //const firstname = result.rows[0].firstname;
+            //const lastname = result.rows[0].lastname;
             const signatureCode = result.rows[0].signature_code;
 
-            response.render('thank-you', {signatureCode: signatureCode, firstname: firstname, lastname: lastname});
+            response.render('thank-you', {
+                signatureCode: signatureCode, 
+                //firstname: firstname, 
+                //lastname: lastname
+            });
         
         }) 
         
         .catch(error => {
             response.status(401);
-            response.send('<html>This Session is not valid. Go there <a href="/">the homepage</a>.</html>'
-            ); 
+            response.send('<html>This Session is not valid. Go there <a href="/">the homepage</a>.</html>');
+            console.log ('error', error);   
         });    
 
     }); 
@@ -337,6 +343,7 @@ app.get('/thank-you', (request, response) => {
 
         db.getSigners()
         .then(results => {
+            console.log ("results", results);  
         response.render('signers', {
             signers: results.rows,
 
