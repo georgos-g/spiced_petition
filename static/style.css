@@ -2,9 +2,10 @@
 
 h1, h2, h3  {
     font-family:  'Roboto', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     text-transform: uppercase;
 }
+
 
 body {
     background: dimgray;
@@ -31,13 +32,14 @@ footer {
 img {
     padding-top: 10px;
     padding-bottom: 10px;
+    border-radius: 5px;
     
 }
 
 #wrapper {
     text-align: center;
-    padding: 5px;
-    margin: 5px;
+    padding: 0px;
+    margin: 0px;
     /* background: rgba(22, 22, 22, 0.8) ;  */
 }
 
@@ -54,7 +56,8 @@ img {
 
 .error {
     background:rgba(0, 0, 0, 0.6);
-    border: solid white 1px;;
+    border-radius: 5px;
+    border: solid rgb(71, 71, 71) 1px;;
     width: 300px;
     color: white;
     padding: 20px;
@@ -123,3 +126,43 @@ p > a:focus {
     list-style-type: none;
     padding-bottom: 10px;
 }
+
+
+
+  .blue {
+    fill: turquoise;
+ }
+ .responsive {
+    width: 70%;
+    height: auto;
+}
+@media (min-width: 1200px) { 
+    .responsive {
+        width: 750px;
+        height: auto;
+      }
+
+  }
+ 
+
+@media (max-width: 630px) { 
+    .responsive {
+        width: 400px;
+        height: auto;
+      }
+
+  } 
+
+
+#textfield {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 700px;
+
+    
+}
+  
+.svg-color  {
+    fill: #1a88e2;
+}
+ 
