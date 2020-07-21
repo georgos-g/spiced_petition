@@ -357,14 +357,11 @@ app.get('/thank-you', (request, response) => {
 
 
 });
-    // app.get('/logout', (request, response) => {
-    //     request.session.signatureID = 0 ;
-    //     //response.redirect ('/login', 302);
-    //});
+    
     app.post('/logout', (request, response) => {
         request.session.userID = 0 ;
         response.redirect('/login',302);
-        console.log ('ffffffffff');  
+        
     });
         
 
