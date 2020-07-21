@@ -1,4 +1,4 @@
-<h2>Thank you for singing in {{firstname}} {{lastname}}!</h2>
+<h1>Thank you for singing in {{firstname}} {{lastname}}!</h1>
 
 <div id= 'wrapper'>
 <img src="{{signatureCode}}" alt="">
@@ -10,10 +10,17 @@
 
 <form action="/unsign-petition" method="POST">
 If you like to remove your signature from this petition,
-push the button bellow: <br>  
+push the button bellow: <br> <br> 
 <button type="submit">UNSIGN</button><br><br>
 <input type="hidden" name="_csrf" value="{{csrfToken}}"> 
 
+
+For changing your profile details: <a href="/profile-edit">here you can </a></p><br>
+
 </form>
-For changing your profile details: <a href="/profile-edit">here you can </a></p>
+<form action="/logout" method="POST">
+<input type="hidden" name="_csrf" value="{{csrfToken}}"> 
+<button type="submit">LOGOUT</button><br><br>
+
+</form>
 </div>

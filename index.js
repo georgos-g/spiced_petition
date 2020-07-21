@@ -1,3 +1,7 @@
+
+//redis cache
+//const cache = require('/cache.js');
+//-------------------------------
 const express = require('express');
 const hb = require('express-handlebars');
 const cookieSession = require ('cookie-session');
@@ -333,17 +337,18 @@ app.get('/thank-you', (request, response) => {
         .catch(error => {
             response.status(401);
             response.send('<html>This Session is not valid. Go there <a href="/">the homepage</a>.</html>');
-            console.log ('error', error);   
+            //console.log ('error', error);   
         });    
 
     }); 
  
+    //
     app.get('/signers', (request, response)=>{
     
 
         db.getSigners()
         .then(results => {
-            console.log ("results", results);  
+            //console.log ("results", results);  
         response.render('signers', {
             signers: results.rows,
 
@@ -352,5 +357,15 @@ app.get('/thank-you', (request, response) => {
 
 
 });
+    // app.get('/logout', (request, response) => {
+    //     request.session.signatureID = 0 ;
+    //     //response.redirect ('/login', 302);
+    //});
+    app.post('/logout', (request, response) => {
+        request.session.userID = 0 ;
+        response.redirect('/login',302);
+        console.log ('ffffffffff');  
+    });
+        
+
 app.listen(process.env.PORT || 8080);
-//app.listen(8080);

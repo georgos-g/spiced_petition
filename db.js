@@ -102,9 +102,11 @@ exports.saveProfile =(userID, age, city, homepage) => {
     };
 
     exports.getSigners = () => {
-    return db.query(
-        `SELECT firstname, lastname, age, city, homepage FROM signatures
+        return db.query(
+            `SELECT firstname, lastname, age, city, homepage FROM signatures
                      JOIN users ON signatures.user_id = users.id
                      JOIN profiles ON users.id = profiles.user_id;`, 
         );
     };
+
+    

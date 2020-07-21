@@ -1,52 +1,59 @@
+@charset "UTF-8";
+
+h1, h2, h3  {
+    font-family:  'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
 body {
     background: dimgray;
     color: white;
     padding-bottom: 40px;
-    font-size: 15px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    font-size: 13px;
+    font-family:   'Montserrat', sans-serif;
+    font-weight: 300;
     text-align: center ;
 }
 
 footer {
-    background: rgb(70, 70, 70);
+    background: rgba(20, 20, 20, 0.80);
     position: fixed;
-    height: 40px;
-    line-height: 40px;
+    height: 35px;
+    line-height: 35px;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     left: 0;
     bottom: 0;
     right: 0;
 }
 
+img {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
 #wrapper {
-          
     text-align: center;
+    padding: 5px;
+    margin: 5px;
+    /* background: rgba(22, 22, 22, 0.8) ;  */
 }
 
 #signature-canvas {
     display: flex;
     flex-direction: column;
-        
-    
-
- position: absolute;
-  left: 50%;
-  
-  transform: translate(-50%, 0%);
-
-
-      
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
     background: #5c5c5c;
     border: solid grey 1px;
-    
-
-
 }
 
 
 .error {
-    background: black;
+    background:rgba(0, 0, 0, 0.6);
     border: solid white 1px;;
     width: 300px;
     color: white;
@@ -56,4 +63,63 @@ footer {
     left: 50%;
     top: 50%; 
     transform: translate(-50%, -50%);
+}
+
+.down10 {
+    margin-bottom: 10px;
+}
+.up10 {
+    margin-top: 10px;
+}
+
+.down20 {
+    margin-bottom: 20px;
+}
+.up20 {
+    margin-top: 20px;
+}
+
+
+/* links */
+a {
+    font-weight: 500;
+    color: rgb(127, 157, 255);
+    text-decoration: none;
+  -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+          
+          
+}
+
+a:hover {
+  
+  text-decoration: underline;
+}
+
+p > a {
+  border-bottom: 0px solid rgba(44, 170, 223, 0);
+  
+}
+
+p > a:visited {
+  color: none;
+  text-decoration: none;
+}
+
+p > a:visited:hover,
+p > a:visited:focus {
+  color: none;
+  text-decoration: none;
+}
+
+p > a:hover,
+p > a:focus {
+  color: none;
+  
+  border-bottom: 0px solid #2caadf;
+}
+
+#signers {
+    list-style-type: none;
+    padding-bottom: 10px;
 }
