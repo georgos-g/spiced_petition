@@ -9,7 +9,7 @@ const db = require('./db.js');
 const csurf = require('csurf');
 const hashing = require("./hashing.js");
 const { request, response } = require('express');
-//const { request, response } = require('express');
+//const yt = require('.yt.js')
 
 
 //setup for express & handlebars & static css
@@ -363,6 +363,8 @@ app.get('/thank-you', (request, response) => {
         response.redirect('/login',302);
         
     });
-        
+    
+
 
 app.listen(process.env.PORT || 8080);
+
