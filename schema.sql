@@ -1,5 +1,5 @@
 
-DROP TABLE users;
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     firstname VARCHAR(500) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE signatures;
+DROP TABLE IF EXISTS signatures;
 CREATE TABLE signatures (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
@@ -17,7 +17,7 @@ CREATE TABLE signatures (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE profiles;
+DROP TABLE IF EXISTS profiles;
 CREATE TABLE profiles (
  id SERIAL PRIMARY KEY,
  user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
