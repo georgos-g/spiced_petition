@@ -1,6 +1,3 @@
-//redis cache
-//const cache = require('/cache.js');
-
 const express = require("express");
 const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
@@ -42,7 +39,7 @@ app.use(function (req, res, next) {
 // LOGIN PAGE
 app.get("/login", (request, response) => {
     if (request.session.userID) {
-        response.redirect("/", 302); //if userID is loged in  -> redirect to home
+        response.redirect("/", 302); //if userID is logged in  -> redirect to home
     } else {
         response.render("login");
     }
@@ -71,7 +68,7 @@ app.post("/login", (request, response) => {
             });
         })
         .catch((error) => {
-            response.status(401).send("Your email or passwort are incorrect");
+            response.status(401).send("Your email or password are incorrect");
             console.error(error);
         });
 });
@@ -140,12 +137,12 @@ app.post("/profile", (request, response) => {
         })
         .catch((error) => {
             response.status(503);
-            response.send("My appologies! Something goes terribly wrong");
+            response.send("My apologies! Something goes terribly wrong");
             console.error(error);
         });
 });
 
-// PROFILE EDIT  ------
+// PROFILE EDIT  
 app.get("/profile-edit", (request, response) => {
     if (!request.session.userID) {
     //If not logged in redirect to login
@@ -158,7 +155,7 @@ app.get("/profile-edit", (request, response) => {
             response.render("profile-edit", userInfo);
         })
         .catch((error) => {
-            response.status(500).send("Sorry! We do not recognise you.");
+            response.status(500).send("Sorry! We do not recognize you.");
         });
 });
 
@@ -243,7 +240,7 @@ app.post("/sign-petition", (request, response) => {
     if (!signatureCode) {
         console.log("Required fields are missing");
         response.render("home", {
-            error: "Please sign your signature in the field below:",
+            error: "Please sign with your signature in the field below:",
         });
     } else {
         const userID = request.session.userID;
@@ -259,7 +256,7 @@ app.post("/sign-petition", (request, response) => {
 //unsign petition
 
 app.post("/unsign-petition", (request, response) => {
-    //check if user is loged in
+    //check if user is logged in
     if (!request.session.userID) {
         response.redirect("/login", 302);
     } else {
